@@ -44,16 +44,21 @@ if ($new_ratio < $orig_ratio) {
     $y_offset = ($orig_height - $select_height) / 2; // top
 }
 
+switch ($media_type) {
+    case 'image/gif': $orig = imagecreatefromgif($orig_path); break;
+    case 'image/jpeg': $orig = imagecreatefromjpeg($orig_path); break;
+    case 'image/png': $orig = imagecreatefrompng($orig_path);   break;
+}
 
 $new = imagecreateturecolor($new_width, $new_height);
 imagecopyresampled($new, $orig, 0, 0, $x_offset, $y_offset, 
 $new_width, $new_height, $select_width, $select_height);
 
-}
-switch ($media_type) {
-    case 'image/gif': $orig = imagecreatefromgif($orig_path);   break;
-    case 'image/jpeg': $orig = imagecreatefromjpeg($orig_path); break;
-    case 'image/png': $orig = imagecreatefrompng($orig_path);   break;
+switch(media_type){
+case 'image/gif':$result= imagegif($new, $new_path); break;
+case 'image/jpeg':$result= imagejpeg($new, $new_path); break;
+case 'image/png':$result= imagepng($new, $new_path); break;
+
 }
 
 return $result; 
